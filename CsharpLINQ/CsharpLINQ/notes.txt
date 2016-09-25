@@ -1,0 +1,22 @@
+﻿List<int> numbers = new List<int> {2,4,8,16,32,64};
+
+Without LINQ 
+List<int> numbersGreaterThanTen = new  List<int>(); 
+
+foreach(int number in numbers) 
+{
+	if (number > 10) 
+	numbersGreaterThanTen.Add(number); 
+}
+
+numbersGreaterThanTen 
+>{16,32,64}
+
+With LINQ 
+from number in numbers where number >10 select number;
+>{16,32,64}
+
+IEnumerable<int> numbersGreaterThan10 = from n in numbers where n >10 select n;
+
+numbersGreaterThanTen.Count(); 
+>3 
