@@ -20,3 +20,123 @@ IEnumerable<int> numbersGreaterThan10 = from n in numbers where n >10 select n;
 
 numbersGreaterThanTen.Count(); 
 >3 
+
+
+var birds = new[] 
+{ 
+    new { Name = "Pelican", Color = "White" }, 
+    new { Name = "Swan", Color = "White" }, 
+    new { Name = "Crow", Color = "Black" } 
+
+};
+
+var mysteryBird = new { Color = "White", Sightings = 3 };
+var matchingBirds = from b in birds where b.Color == mysteryBird.Color select new { BirdName == b.Name};
+
+
+from b in birds orderby b.Name decending select b.Name; 
+
+
+from b in birds orderby b.Color, b.Sightings descending select new {b.Name, b.Sightings};
+
+
+
+var birdsByColor = from b in birds group b by b.Color; 
+foreach (var bird in birdsByColor){
+	Console.WriteLine(bird.Key + "" + bird.Count());
+}
+
+Red 1 
+Black 2 
+White 1 
+... 
+
+
+from b in birds 
+group b by b.Color into birdsByColor 
+where birdsByColor.Count() > 1 
+select new {Color = birdsByColor.key, Count = birdsByColor.Count() };
+
+{Color = Red, Count = 2}, {Color = White, Count = 3}
+
+
+
+
+Class Program 
+{
+	delegate void SayGreeting(string Name); 
+	public static void SayHello(string name); 
+	{
+		Console.WriteLine(string.Format("Hello, {0}", name));
+	}
+
+	string void Main(string[] args)
+	{
+		SayGreeting sayGreeting = new SayGreeting(SayHello); 
+		Console.WriteLine("What's your name?"); 
+		string input = Console.ReadLine(); 
+		sayGreeting(input); 
+	}
+}
+
+Class Program 
+{
+	delegate void SayGreeting(string Name); 
+	public static void SayHello(string name); 
+	{
+		Console.WriteLine(string.Format("Hello, {0}", name));
+	}
+
+	public static void SayGoodbye(string name); 
+	{
+		Console.WriteLine(string.Format("Later, {0}", name));
+	}
+
+	string void Main(string[] args)
+	{
+		SayGreeting sayGreeting = delegate(string name)
+		{
+			Console.WriteLine(string.Format("Hello, {0}", name));
+		}; 
+
+		Console.WriteLine("What's your name?"); 
+		string input = Console.ReadLine(); 
+		sayGreeting(input); 
+		Console.ReadLine(); 
+		sayGreeting = new SayGreeting(SayGoodbye); 
+		sayGreeting(input); 
+	}
+}
+
+
+
+using System;
+
+namespace CodeChallenges
+{
+    class Program
+    {
+        public delegate int MathOperation(int number);
+        
+        public static int Add (int number){
+            return number + number; 
+        }
+        
+        public static int Square (int number) {
+            return number * number; 
+        }
+        
+        MathOperation add = new MathOperation(Add); 
+        MathOperation square = new MathOperation(Square); 
+
+        
+        static void Main(string[] args)
+        {
+        }
+    }
+}
+
+
+
+
+ACTIONS 
