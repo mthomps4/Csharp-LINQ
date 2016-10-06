@@ -213,3 +213,34 @@ namespace Treehouse.CodeChallenges
 
 LAMBDA OPERATOR => (X) => x + 2 
 
+birds.Where((b) => b.Color == "Red"); 
+birds.OrderBy(b => b.Name).ThenBy(b=>b.Sightings);
+
+
+
+
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Treehouse.CodeChallenges
+{
+    public class NumberAnalysis
+    {
+        private List<int> _numbers;
+        public NumberAnalysis()
+        {
+            _numbers = new List<int> { 2, 4, 6, 8, 10 };
+        }
+        
+        public IEnumerable<int> NumbersGreaterThanFive()
+        {
+            return _numbers.Where((n)=> n > 5); 
+        }
+		
+		public IEnumerable<int> ReverseNumbers()
+        {
+            return _numbers.OrderByDescending((n)=>n); 
+        }
+
+    }
+}
