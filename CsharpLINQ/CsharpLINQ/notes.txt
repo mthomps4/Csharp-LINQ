@@ -44,3 +44,227 @@ or
 
 Bird blueJay = new Bird(); 
 blueJay.Name = .... 
+
+
+var birds = new[] 
+{ 
+    new { Name = "Pelican", Color = "White" }, 
+    new { Name = "Swan", Color = "White" }, 
+    new { Name = "Crow", Color = "Black" } 
+
+};
+
+var mysteryBird = new { Color = "White", Sightings = 3 };
+var matchingBirds = from b in birds where b.Color == mysteryBird.Color select new { BirdName == b.Name};
+
+
+from b in birds orderby b.Name decending select b.Name; 
+
+
+from b in birds orderby b.Color, b.Sightings descending select new {b.Name, b.Sightings};
+
+
+
+var birdsByColor = from b in birds group b by b.Color; 
+foreach (var bird in birdsByColor){
+	Console.WriteLine(bird.Key + "" + bird.Count());
+}
+
+Red 1 
+Black 2 
+White 1 
+... 
+
+
+from b in birds 
+group b by b.Color into birdsByColor 
+where birdsByColor.Count() > 1 
+select new {Color = birdsByColor.key, Count = birdsByColor.Count() };
+
+{Color = Red, Count = 2}, {Color = White, Count = 3}
+
+
+
+
+Class Program 
+{
+	delegate void SayGreeting(string Name); 
+	public static void SayHello(string name); 
+	{
+		Console.WriteLine(string.Format("Hello, {0}", name));
+	}
+
+	string void Main(string[] args)
+	{
+		SayGreeting sayGreeting = new SayGreeting(SayHello); 
+		Console.WriteLine("What's your name?"); 
+		string input = Console.ReadLine(); 
+		sayGreeting(input); 
+	}
+}
+
+Class Program 
+{
+	delegate void SayGreeting(string Name); 
+	public static void SayHello(string name); 
+	{
+		Console.WriteLine(string.Format("Hello, {0}", name));
+	}
+
+	public static void SayGoodbye(string name); 
+	{
+		Console.WriteLine(string.Format("Later, {0}", name));
+	}
+
+	string void Main(string[] args)
+	{
+		SayGreeting sayGreeting = delegate(string name)
+		{
+			Console.WriteLine(string.Format("Hello, {0}", name));
+		}; 
+
+		Console.WriteLine("What's your name?"); 
+		string input = Console.ReadLine(); 
+		sayGreeting(input); 
+		Console.ReadLine(); 
+		sayGreeting = new SayGreeting(SayGoodbye); 
+		sayGreeting(input); 
+	}
+}
+
+
+
+using System;
+
+namespace CodeChallenges
+{
+    class Program
+    {
+        public delegate int MathOperation(int number);
+        
+        public static int Add (int number){
+            return number + number; 
+        }
+        
+        public static int Square (int number) {
+            return number * number; 
+        }
+        
+        MathOperation add = new MathOperation(Add); 
+        MathOperation square = new MathOperation(Square); 
+
+        
+        static void Main(string[] args)
+        {
+        }
+    }
+}
+
+
+
+
+ACTIONS 
+Class Program 
+{
+	string void Main(string[] args)
+	{
+		Action<string> sayGreeting; 
+		sayGreeting = delegate(string name)
+		{
+			Console.WriteLine(string.Format("Hello, {0}", name));
+		}; 
+
+		Console.WriteLine("What's your name?"); 
+		string input = Console.ReadLine(); 
+		sayGreeting(input); 
+		Console.ReadLine(); 
+		sayGreeting = = delegate(string name)
+		{
+			Console.WriteLine(string.Format("Later, {0}", name));
+		}; 
+		sayGreeting(input); 
+	}
+}
+
+
+
+
+Class Program 
+{
+	string void Main(string[] args)
+	{
+		Action<string> sayGreeting; 
+
+		Func<string, string> conversate = delegate(string message)
+		{
+			Console.WriteLine(message); 
+			return Console.ReadLine(); 
+		}; 
+
+		string input = conversate("What's your name?"); 
+
+		sayGreeting = delegate(string greeting)
+		{
+			Console.WriteLine(string.Format(greeting, input));
+		}; 
+
+		sayGreeting("Hello, {0}");
+		conversate("Nice to see you!"); 
+		conversate("Are you doing well?");
+		sayGreeting("Later, {0}");
+	}
+}
+
+
+using System;
+
+namespace Treehouse.CodeChallenges
+{
+    public class Program
+    {
+        public Action<int, Func<int,int>> DisplayResult = delegate (int result, Func<int,int> operation){
+            Console.WriteLine(operation(result)); 
+        };
+        
+        public Func<int, int> Square = delegate(int number)
+        {
+            return number * number;
+        };
+        
+    }
+}
+
+
+LAMBDA OPERATOR => (X) => x + 2 
+
+birds.Where((b) => b.Color == "Red"); 
+birds.OrderBy(b => b.Name).ThenBy(b=>b.Sightings);
+
+
+
+
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Treehouse.CodeChallenges
+{
+    public class NumberAnalysis
+    {
+        private List<int> _numbers;
+        public NumberAnalysis()
+        {
+            _numbers = new List<int> { 2, 4, 6, 8, 10 };
+        }
+        
+        public IEnumerable<int> NumbersGreaterThanFive()
+        {
+            return _numbers.Where((n)=> n > 5); 
+        }
+		
+		public IEnumerable<int> ReverseNumbers()
+        {
+            return _numbers.OrderByDescending((n)=>n); 
+        }
+
+    }
+}
