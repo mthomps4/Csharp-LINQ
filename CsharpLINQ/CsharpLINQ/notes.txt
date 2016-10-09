@@ -268,3 +268,213 @@ namespace Treehouse.CodeChallenges
 
     }
 }
+
+
+birds.Any(b=>b.Name == "Crow")
+> true 
+
+if(!birds.Any(b => b.Name == "Crow")){
+	birds.Add(new Bird {Name = "Crow"});
+}
+
+
+var sparrow = new Bird {Name = "Sparrow", Color= "Brown"}
+if (!birds.Contains(sparrow)){
+	birds.Add ... 
+}
+
+birds.All(b=> b.Name != "Sparrow")
+> false 
+
+
+birds.Where(b=> b.Name =="Crow").Single(); 
+> Name: Crow, Color: Black, Sightings: 11 
+
+birds.Single(b=> b.Name == "Crow") 
+> Name: Crow, Color: Black, Sightings: 11 
+
+birds.SingleOrDefault > returns Null if nothing found 
+
+var numbers = list ... 
+numbers.SingleOrDefault(n => n == 99) 
+> 0  
+No number found 
+
+birds.First 
+birds.Last 
+
+birds.First(b=> b.Name == "") 
+
+numbers.ElementAt(2) 
+similar to numbers[2]
+
+var redBirds = birds.Where(b=> b.Color == "red"); 
+redBirds[0]
+>error 
+
+redBirds.ElementAt(0); 
+Name: Cardinal, Color: Red ... 
+
+
+birds.Take(3); 
+> returns first 3 birds 
+
+birds.OrderBy(b=> b.Name.Length).Take(3) 
+> returns first 3 with shortest name 
+
+birds.OrderBy(b => Name.Length).Skip(3).Take(3)
+>skips first 3 and takes next 3 
+
+birds.TakeWHile(b => b.Name.Lenth < 6)
+>Take while loop 
+
+birds.SkipWhile(b=> b.Name.Length > 6)
+>skip while loop
+
+
+var colors - new List<string> {"Blue", "Red"};
+
+var favoriteBirds = FROM b in birds JOIN c IN colors ON b.Color EQUALS c SELECT b; 
+
+favoriteBirds 
+> returns birds where color matches colors in List above 
+
+ outer.Join(inner, 
+			outerKeySelector, 
+			innerKeySelector, 
+			resultSelector); 
+
+var favoriteBirds = birds.Join(colors, 
+	b=>b.Color, 
+	c=>c, 
+	(bird, color)=> bird);  
+
+
+var groupedBirds = colors.GroupJoin(birds, 
+c=> c, 
+b=> b.Color 
+(color, bird) => new {Color = color, Birds = bird});
+
+
+Create a variable named ourBirds and assign to it a LINQ query that is the result of a join from myBirds onto yourBirds using the Name property as the key. Make sure to return the birds that are the same between the two lists.
+
+
+var myBirds = new List<Bird> 
+{ 
+    new Bird { Name = "Cardinal", Color = "Red", Sightings = 3 },
+    new Bird { Name =  "Dove", Color = "White", Sightings = 2 },
+    new Bird { Name =  "Robin", Color = "Red", Sightings = 5 }
+};
+
+var yourBirds = new List<Bird> 
+{ 
+    new Bird { Name =  "Dove", Color = "White", Sightings = 2 },
+    new Bird { Name =  "Robin", Color = "Red", Sightings = 5 },
+    new Bird { Name =  "Canary", Color = "Yellow", Sightings = 0 }
+};
+
+var ourBirds = from b in myBirds join y in yourBirds on b.Name equals y.Name select b;
+
+
+from b in birds group b by b.COlor 
+
+birds.GroupBy(b=> b.Color) 
+
+birds.GroupBy(b=> b.Color).Select(g => new {color = g.Key, Count = g.Count()})
+>Bird counts for each color
+
+birds.SUm(b=>b.Sightings); 
+> 32 
+
+birds.GroupBy(b=> b.Color).Select(g => new {Color = g.Key, Sightings = g.Sum(b => b.Sightings})
+
+birds.Average(b=>b.Sightings) 
+birds.Min(b => b.Sightings) 
+birds.Max 
+
+
+var myBirds = new List<Bird> 
+{ 
+    new Bird { Name = "Cardinal", Color = "Red", Sightings = 3 },
+    new Bird { Name =  "Dove", Color = "White", Sightings = 2 },
+    new Bird { Name =  "Robin", Color = "Red", Sightings = 5 }
+};
+
+var yourBirds = new List<Bird> 
+{ 
+    new Bird { Name =  "Dove", Color = "White", Sightings = 2 },
+    new Bird { Name =  "Robin", Color = "Red", Sightings = 5 },
+    new Bird { Name =  "Canary", Color = "Yellow", Sightings = 0 }
+};
+
+var ourBirds = myBirds.Join(yourBirds,
+                            mb => mb.Name,
+                            yb => yb.Name,
+                            (mb, yb) => (mb));
+
+var sumOfSightings = ourBirds.Sum(b=>b.Sightings); 
+var averageSightings = ourBirds.Average(b=>b.Sightings); 
+
+
+birds.Select(b=>b.Color)
+{Red, Red, Yellow, Black, Blue}
+
+birds.Select(b=> b.Color).Distinct()  
+{Red, Yellow, Black, Blue}
+
+
+var colors = new List<string> {Pink, Blue, Teal}
+colors.Except{birds.Select(b=>b.COlor).Distinct()}
+> Pink, Teal 
+No birds with pink and teal colors 
+
+colors.Union(birds.Select(b=>b.Color).Distinct())
+returns all colors 
+
+Intersect returns Overlap 
+colors.Intersect(birds.Select(b=>b.Color).Distinct())
+> Blue 
+
+colors.Concat(birds.Select(b => b.Color)) 
+Returns all and duplicates 
+
+
+var numbers = Enumerable.Range(0,10); //Only ints 
+
+Enumerabel.Repeat("repeat", 10) //repeat any element x times 
+
+var var emptyBirds = Enumberable.Empty<bird>(); 
+
+var numbers = Enumberable.Empty<int>(); 
+numbers.DefaultIfEmpty() 
+>0
+default value 0
+
+
+birds.Where(b=>b.Color == "red").ToList(); 
+> returns list of birds where color red 
+
+redBirds = birds.Where(b=>b.Color == "red"); 
+
+redBirds.ToList(); 
+
+redBirds.ToArray(); 
+
+AsEnumerable 
+Cast 
+OfType 
+ToArray
+ToDictionary
+ToList
+ToLookup 
+
+
+
+birds.SelectMany(b=> b.Sightings).GroupBy(s = s.Place.Country).Select(grp => new {Country = grp.Key, Sightings = grp.Count()})
+
+
+
+  public static bool _ContainsAny(this string source, IEnumerable<string> stringsToMatch)
+        {
+            return stringsToMatch.Any(item => source.Contains(item));  
+        }
